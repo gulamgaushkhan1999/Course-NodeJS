@@ -7,15 +7,16 @@ import base_url from "../API/SpringBootApi";
 import { toast } from "react-toastify";
 
 const AddCourse=()=>{
-    useEffect(()=>{
-        document.title="Add Course"
-      }, [] );
-const [course, setCourse] = useState({});
+  useEffect(()=>{document.title="Add Course"}, []);
+
+const [course, setCourse] = useState([{}]);
 
 //form handler function
 const handleForm=(e)=>{
     console.log(course);
+    postDataToServer(course);
     e.preventDefault();
+    // to remove default functionality
 };
 
 //creating function to post data on server
@@ -25,17 +26,18 @@ const handleForm=(e)=>{
               //For Success
               console.log(response);
               console.log("success");
-              toast.success("Success", {
-                position:"bottom-center"} );
+              toast.success("Course Addedd Successfully", {
+                position:"bottom-center"});
               setCourse({ id: "", title: "", description: "" });
             },
             (error) => {
               //For Error
               console.log(error);
               console.log("error");
-              toast.error("Something wrong", {
+              toast.error("Something Went Wrong", {
                 position:"bottom-center"
               });
+              setCourse({ id: "", title: "", description: "" });
             }
           );
     };
